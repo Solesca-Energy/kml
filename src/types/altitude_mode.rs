@@ -18,7 +18,10 @@ impl FromStr for AltitudeMode {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
-            "clampToGround" => Ok(Self::ClampToGround),
+            // While "clampToGround" is the proper terminology
+            // per the KML specification, it appears as though
+            // Civil3D exports KMZ files with "clampedToGround."
+            "clampToGround" | "clampedToGround" => Ok(Self::ClampToGround),
             "relativeToGround" => Ok(Self::RelativeToGround),
             "absolute" => Ok(Self::Absolute),
             v => Err(Error::InvalidAltitudeMode(v.to_string())),
